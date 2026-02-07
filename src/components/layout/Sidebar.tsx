@@ -8,6 +8,8 @@ import {
   ArrowLeftRight,
   BarChart3,
   TrendingUp,
+  Star,
+  Settings,
   Menu,
   X,
 } from 'lucide-react';
@@ -20,6 +22,8 @@ const navItems = [
   { href: '/trades', label: '거래 기록', icon: ArrowLeftRight },
   { href: '/analysis', label: '분석', icon: BarChart3 },
   { href: '/market', label: '시장 정보', icon: TrendingUp },
+  { href: '/watchlist', label: '관심 종목', icon: Star },
+  { href: '/settings', label: '설정', icon: Settings },
 ];
 
 export default function Sidebar() {
@@ -72,6 +76,7 @@ export default function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setSidebarOpen(false)}
                 className={cn(
                   'flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200',
                   isActive

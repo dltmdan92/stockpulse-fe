@@ -1,6 +1,7 @@
 'use client';
 
-import { Bell, Search, User, Settings } from 'lucide-react';
+import { Search, User, Settings } from 'lucide-react';
+import NotificationDropdown from './NotificationDropdown';
 
 export default function Header() {
   return (
@@ -21,10 +22,7 @@ export default function Header() {
         {/* Right Section */}
         <div className="flex items-center gap-4">
           {/* Notifications */}
-          <button className="relative p-2.5 hover:bg-[var(--card-hover)] rounded-xl transition-colors">
-            <Bell className="w-5 h-5 text-[var(--text-secondary)]" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[var(--accent)] rounded-full" />
-          </button>
+          <NotificationDropdown />
 
           {/* Settings */}
           <button className="p-2.5 hover:bg-[var(--card-hover)] rounded-xl transition-colors">

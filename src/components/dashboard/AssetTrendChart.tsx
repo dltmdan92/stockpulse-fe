@@ -59,7 +59,7 @@ export default function AssetTrendChart({ data }: AssetTrendChartProps) {
                 borderRadius: '12px',
                 padding: '12px',
               }}
-              formatter={(value: number) => [formatCurrency(value), '평가금액']}
+              formatter={((value: number) => [formatCurrency(value), '평가금액']) as never}
               labelFormatter={(label) => {
                 const date = new Date(label);
                 return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });

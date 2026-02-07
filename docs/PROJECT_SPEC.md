@@ -1,73 +1,45 @@
-# Project Overview & Specifications
+# Project Overview
 
-## Project Goal
+## 프로젝트 소개
 
-**StockPulse** is an investment portfolio management tool that emphasizes **journaling**.
-Unlike traditional trackers, it forces users to record "Why" they bought/sold, helping them analyze their decision-making process later.
+**StockPulse**는 투자 포트폴리오 관리 + 저널링 웹 애플리케이션입니다.
 
-## Core Features Flow
+> "내 투자를 기록하고, 추적하고, 복기한다"
 
-### 1. Dashboard (`/`)
+기존 투자 트래커와의 차별점: 모든 거래에 **"왜?"**를 기록하게 하여 투자 의사결정 능력을 개선합니다.
 
-- **Overview**: View total assets, daily change, and profit/loss.
-- **Quick Access**: Recent trades list and sector allocation chart.
+## 핵심 기능
 
-### 2. Portfolio (`/portfolio`)
+| 기능 | 라우트 | 설명 |
+|------|--------|------|
+| 대시보드 | `/` | 자산 현황 개요, 차트, 최근 거래 |
+| 포트폴리오 | `/portfolio` | 보유 종목 CRUD, 섹터 배분 |
+| 거래 기록 | `/trades` | 매매 저널링 (메모 + 태그) - **핵심** |
+| 분석 | `/analysis` | 승률, 수익률, 태그별 성과 분석 |
+| 시장 정보 | `/market` | 주요 지수, 뉴스 피드 |
+| 관심 종목 | `/watchlist` | 모니터링 종목 |
+| 설정 | `/settings` | 앱 설정 |
 
-- **CRUD**: Add/Edit/Delete stock holdings.
-- **View**: Table view with columns for Quantity, Avg Price, Current Price (Mock), and Return %.
+## 데이터 모델 요약
 
-### 3. Trades (`/trades`)
+모든 타입은 `src/types/index.ts`에 정의됩니다.
 
-- **Journal Entry**: When adding a trade, user MUST input:
-  - Symbol & Price
-  - **Memo**: Reason for trade.
-  - **Tags**: Strategy tags (e.g., #AI, #DipBuy).
-- **Filtering**: Filter logs by tags or "Buy/Sell" type.
+| 모델 | 핵심 필드 | 용도 |
+|------|----------|------|
+| `Stock` | symbol, quantity, avgPrice, currentPrice, sector, country | 보유 종목 |
+| `Trade` | type(buy/sell), memo, tags, targetPrice, stopLoss | 거래 기록 (핵심) |
+| `PortfolioSummary` | totalValue, totalReturn, dailyChange | 포트폴리오 요약 |
+| `MarketIndex` | symbol, value, change, changePercent | 시장 지수 |
 
-### 4. Analysis (`/analysis`)
+상세 내용은 아래 문서를 참조하세요:
 
-- **Performance Review**: Calculate Win Rate, Avg Return, and Profit Factor.
-- **Tag Analysis**: Which tags (strategies) are performing best?
+- 상세 기능 명세: [FEATURE_SPEC.md](./FEATURE_SPEC.md)
+- 도메인 개념/용어: [DOMAIN.md](./DOMAIN.md)
+- 아키텍처: [ARCHITECTURE.md](./ARCHITECTURE.md)
+- 디자인 시스템: [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)
 
-## Data Models (Core Types)
+## 현재 상태
 
-The application relies on these core TypeScript interfaces (defined in `src/types/index.ts`):
-
-```typescript
-// Stock Holding
-interface Stock {
-  id: string;
-  symbol: string;
-  name: string;
-  quantity: number;
-  avgPrice: number;
-  currentPrice: number;
-  sector: string;
-}
-
-// Trade Record
-interface Trade {
-  id: string;
-  stockId: string;
-  type: "buy" | "sell";
-  price: number;
-  quantity: number;
-  date: string;
-  memo: string; // <--- Core Feature: Investment Logic
-  tags: string[]; // <--- Core Feature: Strategy Tags
-}
-
-// Market Data
-interface MarketIndex {
-  symbol: string;
-  value: number;
-  changePercent: number;
-}
-```
-
-## User Persona (Target Audience)
-
-- **Active Investors**: Who trade frequently (Swing/Day trading).
-- **Learners**: Who want to track their improvement over time.
-- **Visualizers**: Who prefer clean, dark-mode dashboards.
+- **Phase**: Phase 1 (프론트엔드 프로토타입, Mock 데이터)
+- **Version**: 0.1.0
+- 향후 계획은 [ROADMAP.md](./ROADMAP.md) 참조

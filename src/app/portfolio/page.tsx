@@ -163,7 +163,7 @@ export default function PortfolioPage() {
                     border: '1px solid var(--border)',
                     borderRadius: '12px',
                   }}
-                  formatter={(value: number) => [`${value.toFixed(1)}%`, '비중']}
+                  formatter={((value: number) => [`${value.toFixed(1)}%`, '비중']) as never}
                 />
               </PieChart>
             </ResponsiveContainer>

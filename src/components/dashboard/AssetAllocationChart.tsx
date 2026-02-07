@@ -35,7 +35,7 @@ export default function AssetAllocationChart({ data }: AssetAllocationChartProps
                 borderRadius: '12px',
                 padding: '12px',
               }}
-              formatter={(value: number) => [`${value.toFixed(1)}%`, '비중']}
+              formatter={((value: number) => [`${value.toFixed(1)}%`, '비중']) as never}
               labelStyle={{ color: 'var(--foreground)', fontWeight: 'bold' }}
             />
             <Legend

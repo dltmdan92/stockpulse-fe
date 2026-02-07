@@ -42,3 +42,6 @@ next-env.d.ts
 
 # learning materials
 /study/
+
+# AI tool state
+.omc/

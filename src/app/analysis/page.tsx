@@ -62,8 +62,8 @@ export default function AnalysisPage() {
                     border: '1px solid var(--border)',
                     borderRadius: '12px',
                   }}
-                  formatter={(value: number, name: string) => [
-                    name === 'avgReturn' ? `${value}%` : `${value}%`,
+                  formatter={(value: number | undefined, name: string | undefined) => [
+                    name === 'avgReturn' ? `${value ?? 0}%` : `${value ?? 0}%`,
                     name === 'avgReturn' ? '평균 수익률' : '승률'
                   ]}
                 />

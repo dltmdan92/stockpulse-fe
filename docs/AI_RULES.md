@@ -1,50 +1,57 @@
-# AI Critical Rules & Behavioral Guidelines
+# AI Assistant Rules
 
-These are the **NON-NEGOTIABLE** rules that every AI assistant working on this project must follow.
-Failure to follow these rules will result in incorrect implementation and wasted iterations.
+이 프로젝트에서 AI 어시스턴트(Claude, Gemini, Copilot 등)가 따라야 할 공통 규칙입니다.
 
-## 1. Safety & Integrity (Zero Harm)
+## 1. 안전성 (Zero Harm)
 
-- **Do NOT delete or overwrite files** unless explicitly instructed or part of a confirmed refactoring plan.
-- **Do NOT hallucinate file paths**. Always use `list_dir` or `find_by_name` to confirm a file exists before trying to read or edit it.
-- **Do NOT invent libraries**. Use strictly what is defined in `package.json`. If a new library is needed, **ask the user first**.
+- 명시적 지시 없이 파일 삭제/덮어쓰기 금지
+- 파일 경로를 추측하지 않고 반드시 확인 후 사용
+- `package.json`에 없는 라이브러리를 임의로 사용하지 않음. 필요 시 먼저 확인
 
-## 2. Technical Accuracy (Zero Hallucination)
+## 2. 정확성 (Zero Hallucination)
 
-- **Verify before you write**: Do not assume a function exists in `utils.ts` or a component exists in `components/`. Check the file content first.
-- **Type Safety is Paramount**: Do not use `any` or `// @ts-ignore` to bypass errors. Fix the underlying type issue.
-- **Import Paths**: Always verify imports. Do not import from non-existent index files.
+- 코드 작성 전 대상 파일 내용을 먼저 확인
+- `any` 또는 `@ts-ignore`로 타입 에러를 우회하지 않음. 근본 원인 수정
+- import 경로가 실제로 존재하는지 확인
 
-## 3. User Alignment
+## 3. 사용자 우선
 
-- **Ask before assuming**: If a requirement is vague (e.g., "fix the layout"), ask for clarification or propose a specific plan before executing multiple edits.
-- **Respect User Preferences**: If the user prefers "Human Readable" over "Optimized Code" in a specific context, follow that.
-- **Context Awareness**: Read `docs/PROJECT_SPEC.md` and `docs/CONVENTIONS.md` before writing code to ensure it fits the architectural pattern.
+- 요구사항이 모호하면 실행 전에 질문하거나 구체적 계획 제시
+- 사용자 선호 존중
+- 코드 작성 전 관련 문서(`docs/`) 확인
 
-## 4. Iterative Excellence Cycle (The Loop)
+## 4. 작업 루프
 
-Success is not defined by "attempting", but by "completing with quality".
-You must follow this cycle until the task is **100% complete and bug-free**:
+```
+Plan → Execute → Verify → Improve → Docs Update → Finalize
+```
 
-1.  **Plan**: Analyze the requirement and state of the codebase. Define the steps.
-2.  **Execute**: Implement the changes.
-3.  **Verify**: Run the code, check for errors, and verify the UI.
-    - _If failed_: Analyze the error -> Adjust Plan -> Go back to Execute.
-4.  **Improve**: Look for optimization or refactoring opportunities.
-    - _If improvement needed_: Adjust Plan -> Go back to Execute.
-5.  **Docs Update**: Update `docs/*` and `GEMINI.md` if _anything_ changed (Logic, Stack, Rules).
-6.  **Finalize**: Only when verification passes AND docs are updated, mark the task as done.
+- "될 것 같다"에서 멈추지 않고 "동작을 확인했다"까지 진행
+- 빌드 에러, 타입 에러가 없는 상태에서만 완료 선언
 
-> **Never stop at "it should work". Confirm that "it DOES work".**
+## 5. 문서 정책
 
-## 5. Living Documentation Policy
+코드 변경 시 관련 문서 업데이트 필수:
 
-Documentation is **not** an afterthought. It is part of the code.
+| 변경 내용 | 업데이트 대상 |
+|----------|-------------|
+| 새 라이브러리 | `docs/TECH_STACK.md` |
+| 파일 구조 변경 | `docs/TECH_STACK.md`, `docs/ARCHITECTURE.md` |
+| 새 기능 | `docs/FEATURE_SPEC.md`, `docs/PROJECT_SPEC.md` |
+| 새 컨벤션 | `docs/CONVENTIONS.md` |
+| 디자인 토큰 변경 | `docs/DESIGN_SYSTEM.md` |
+| 도메인 용어 추가 | `docs/DOMAIN.md` |
 
-- **Rule**: If you change the code, you **MUST** update the corresponding documentation.
-- **Scope**:
-  - Added a library? -> Update `TECH_STACK.md`.
-  - Changed file structure? -> Update `PROJECT_SPEC.md` or `TECH_STACK.md`.
-  - New convention? -> Update `CONVENTIONS.md`.
-  - New feature? -> Update `PROJECT_SPEC.md`.
-- **Verdict**: A PR/Task is **incomplete** if the documentation is stale.
+## 6. 참조 문서 인덱스
+
+| 문서 | 경로 | 내용 |
+|------|------|------|
+| 프로젝트 개요 | `docs/PROJECT_SPEC.md` | 프로젝트 소개, 핵심 기능, 데이터 모델 |
+| 기능 명세 | `docs/FEATURE_SPEC.md` | 페이지별 상세 기능 |
+| 도메인 가이드 | `docs/DOMAIN.md` | 투자 도메인 개념, 용어, 규칙 |
+| 아키텍처 | `docs/ARCHITECTURE.md` | 시스템 구조, 컴포넌트 계층, 데이터 흐름 |
+| 디자인 시스템 | `docs/DESIGN_SYSTEM.md` | 색상, 패턴, 반응형, 타이포그래피 |
+| 코딩 컨벤션 | `docs/CONVENTIONS.md` | 코드 스타일, 네이밍, import 규칙 |
+| 기술 스택 | `docs/TECH_STACK.md` | 기술 스택, 디렉토리 구조, 설정 |
+| 개발 가이드 | `docs/SETUP.md` | 환경 설정, 워크플로우 |
+| 로드맵 | `docs/ROADMAP.md` | 개발 로드맵 |
