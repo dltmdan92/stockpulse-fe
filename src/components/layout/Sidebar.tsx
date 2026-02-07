@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -30,6 +31,22 @@ export default function Sidebar() {
   const pathname = usePathname();
   const sidebarOpen = useStore((state) => state.sidebarOpen);
   const setSidebarOpen = useStore((state) => state.setSidebarOpen);
+  const [time, setTime] = useState<string>('');
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('ko-KR'));
+    }, 1000);
+    
+    const initialUpdate = setTimeout(() => {
+      setTime(new Date().toLocaleTimeString('ko-KR'));
+    }, 0);
+    
+    return () => {
+      clearInterval(timer);
+      clearTimeout(initialUpdate);
+    };
+  }, []);
 
   return (
     <>
@@ -97,8 +114,8 @@ export default function Sidebar() {
             <p className="text-sm text-[var(--text-muted)]">
               마지막 업데이트
             </p>
-            <p className="text-sm font-medium mt-1">
-              {new Date().toLocaleTimeString('ko-KR')}
+            <p className="text-sm font-medium mt-1 min-h-[20px]">
+              {time}
             </p>
             <div className="flex items-center gap-2 mt-2">
               <span className="w-2 h-2 rounded-full bg-[var(--positive)] pulse-dot" />
